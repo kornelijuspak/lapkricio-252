@@ -1,0 +1,251 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #18181b; /* beveik juodas fonas */
+  color: #e4e4e7; /* šviesiai pilkšvas tekstas */
+}
+
+.app-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.top-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: #27272a; /* tamsiai pilkšva */
+  border: 1px solid #3f3f46;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  margin-bottom: 16px;
+}
+
+.top-header h1 {
+  margin: 0;
+  font-size: 22px;
+  color: #f4f4f5;
+}
+
+.nav-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: #d4d4d8; /* pilkšva */
+  font-weight: 600;
+}
+
+.nav-bar a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.notice-box {
+  background: #3f3f46; /* pilkšva */
+  border: 1px solid #52525b;
+  color: #f4f4f5;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.toolbar input,
+.toolbar select {
+  padding: 8px 10px;
+  border: 1px solid #52525b;
+  border-radius: 6px;
+  background: #27272a; /* tamsiai pilkšva */
+  color: #e4e4e7;
+}
+
+.card {
+  background: #27272a; /* tamsiai pilkšva */
+  border: 1px solid #3f3f46;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  margin-bottom: 16px;
+  color: #e4e4e7;
+}
+
+.form-box {
+  max-width: 520px;
+}
+
+.stack-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stack-form input,
+.stack-form textarea,
+.stack-form select,
+.row-gap input {
+  padding: 8px 10px;
+  border: 1px solid #52525b;
+  border-radius: 6px;
+  background: #18181b; /* juoda / labai tamsiai pilkšva */
+  color: #f4f4f5;
+  font-family: inherit;
+}
+
+button {
+  padding: 8px 14px;
+  border: 1px solid #52525b;
+  border-radius: 6px;
+  background: #3f3f46; /* pilkšva */
+  color: #f4f4f5;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #52525b; /* šviesesnė pilkšva */
+}
+
+.star-btn {
+  background: #18181b;
+  color: #d4d4d8;
+  font-size: 24px;
+  padding: 4px 8px;
+  border-color: #3f3f46;
+}
+
+.star-btn:hover {
+  background: #3f3f46;
+}
+
+.small-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  background: #18181b; /* juoda / tamsiai pilkšva */
+  color: #e4e4e7;
+  border-color: #52525b;
+}
+
+.small-btn:hover {
+  background: #27272a;
+}
+
+.ad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ad-header h3 {
+  margin: 0 0 4px;
+  color: #f4f4f5;
+}
+
+.ad-img,
+.preview-img {
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 10px;
+  border: 1px solid #52525b;
+}
+
+.row-gap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-box {
+  margin-top: 12px;
+  padding: 12px;
+  background: #18181b; /* juoda / tamsiai pilkšva */
+  border-radius: 6px;
+  border: 1px solid #3f3f46;
+  color: #e4e4e7;
+}
+
+.comments-box {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #3f3f46;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #18181b; /* tamsiai pilkšva / juoda */
+  color: #e4e4e7;
+  border: 1px solid #3f3f46;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.comment-form {
+  margin-top: 10px;
+}
+
+.comment-form input {
+  flex: 1;
+}
+
+.admin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #3f3f46;
+  color: #e4e4e7;
+}
+
+.mod-block {
+  padding: 10px 0;
+  border-bottom: 1px solid #3f3f46;
+  color: #e4e4e7;
+}
+
+.hint-text {
+  background: #18181b;
+  color: #d4d4d8;
+  border: 1px solid #3f3f46;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: #d4d4d8;
+}
