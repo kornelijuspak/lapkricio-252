@@ -6,10 +6,6 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 const REFRESH_MS = 30000;
 const SESSION_KEY = 'skelbimai_session';
 
-/* ------------------------------------------------------------------ */
-/* Pagalbinės funkcijos                                                */
-/* ------------------------------------------------------------------ */
-
 class ApiError extends Error {
   constructor(message, status, code) {
     super(message);
@@ -61,7 +57,6 @@ function loadStoredSession() {
   }
 }
 
-// Nuotrauka sumažinama naršyklėje (maks. 1024 px), kad nebūtų siunčiami didžiuliai failai
 function readImageFile(file, callback, notify) {
   if (!file) return;
   if (!file.type.startsWith('image/')) {
@@ -100,7 +95,6 @@ function validateAdForm({ pavadinimas, aprasymas, kaina, categoryId }) {
   return null;
 }
 
-// Nuotraukos URL laukas nerodo ilgo base64 teksto
 function imageInputValue(value) {
   return value.startsWith('data:') ? '' : value;
 }
@@ -114,10 +108,6 @@ async function runAction(action, okMessage, notify, refresh) {
     notify(err.message);
   }
 }
-
-/* ------------------------------------------------------------------ */
-/* Skelbimų puslapis (viešoji dalis)                                   */
-/* ------------------------------------------------------------------ */
 
 function Skelbimai({
   categories,
@@ -291,7 +281,6 @@ function Skelbimai({
     );
   }
 
-  // Paieška pagal kategoriją ir frazę vyksta serveryje (REST API); čia – tik „patikę“ ir „mano“
   const rodomiSkelbimai = (ads || []).filter((a) => {
     if (onlyFavorites && !favIds.includes(a.id)) return false;
     if (onlyMine && (!currentUser || a.autorius !== currentUser.vardas)) return false;
@@ -570,10 +559,6 @@ function Skelbimai({
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Administravimo sritis                                               */
-/* ------------------------------------------------------------------ */
-
 function AdminPanel({ categories, usersList, allAds, refreshAll, currentUser, api, notify }) {
   const [newCategory, setNewCategory] = useState('');
 
@@ -711,10 +696,6 @@ function AdminPanel({ categories, usersList, allAds, refreshAll, currentUser, ap
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Prisijungimas / registracija                                        */
-/* ------------------------------------------------------------------ */
-
 function Prisijungti({ currentUser, onLogin, logout, notify }) {
   const [vardas, setVardas] = useState('');
   const [slaptazodis, setSlaptazodis] = useState('');
@@ -819,10 +800,6 @@ function Prisijungti({ currentUser, onLogin, logout, notify }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Administratoriaus prisijungimas (NAUJA)                             */
-/* ------------------------------------------------------------------ */
-
 function AdminPrisijungimas({ currentUser, onLogin, logout, notify }) {
   const [vardas, setVardas] = useState('');
   const [slaptazodis, setSlaptazodis] = useState('');
@@ -901,10 +878,6 @@ function AdminPrisijungimas({ currentUser, onLogin, logout, notify }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Pagrindinis komponentas                                             */
-/* ------------------------------------------------------------------ */
-
 function AppContent() {
   const [session, setSession] = useState(loadStoredSession);
   const [categories, setCategories] = useState([]);
@@ -937,7 +910,6 @@ function AppContent() {
     [notify]
   );
 
-  // Sesija išsaugoma, kad perkrovus puslapį vartotojas liktų prisijungęs
   useEffect(() => {
     try {
       if (session) localStorage.setItem(SESSION_KEY, JSON.stringify(session));
@@ -973,7 +945,6 @@ function AppContent() {
     [token, logout]
   );
 
-  // Pradinis sesijos patikrinimas (pvz., jei vartotojas buvo užblokuotas ar token pasibaigė)
   useEffect(() => {
     if (!token) return undefined;
     let cancelled = false;
@@ -990,8 +961,6 @@ function AppContent() {
     return () => {
       cancelled = true;
     };
-    // tikrinama tik atidarius puslapį
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const refreshAll = useCallback(

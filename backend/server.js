@@ -35,10 +35,6 @@ const CI = { locale: 'en', strength: 2 }; // vardų palyginimas be didžiųjų/m
 app.use(cors({ origin: clientOrigins }));
 app.use(express.json({ limit: '8mb' }));
 
-/* ------------------------------------------------------------------ */
-/* Pagalbinės funkcijos                                                */
-/* ------------------------------------------------------------------ */
-
 const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 function parseId(value) {
@@ -54,10 +50,6 @@ function stripMongo(doc) {
   const { _id, __v, ...rest } = doc;
   return rest;
 }
-
-/* ------------------------------------------------------------------ */
-/* Schemos                                                             */
-/* ------------------------------------------------------------------ */
 
 const counterSchema = new mongoose.Schema({
   _id: { type: String },
@@ -141,10 +133,6 @@ async function syncCounters() {
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* Slaptažodžiai ir prieiga                                            */
-/* ------------------------------------------------------------------ */
-
 const findUserByName = (name) => UserModel.findOne({ vardas: name }).collation(CI);
 
 const verifyPassword = (user, plain) => bcrypt.compare(plain, user.slaptazodis);
@@ -193,10 +181,6 @@ const requireAdmin = [
     next();
   }
 ];
-
-/* ------------------------------------------------------------------ */
-/* Skelbimų duomenų validavimas                                        */
-/* ------------------------------------------------------------------ */
 
 function validImage(value) {
   if (value === '') return true;
@@ -268,10 +252,6 @@ async function attachComments(adDocs) {
   return adDocs.map((a) => ({ ...stripMongo(a), comments: byAdId.get(a.id) || [] }));
 }
 
-/* ------------------------------------------------------------------ */
-/* Paleidimo duomenys                                                  */
-/* ------------------------------------------------------------------ */
-
 async function seedIfEmpty() {
   const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
 
@@ -323,10 +303,6 @@ async function seedIfEmpty() {
     );
   }
 }
-
-/* ------------------------------------------------------------------ */
-/* Maršrutai: bendri, registracija, prisijungimas                      */
-/* ------------------------------------------------------------------ */
 
 app.get('/', (_req, res) => {
   res.send('Serveris veikia (MongoDB)');
@@ -388,10 +364,6 @@ app.post(
 app.get('/me', requireAuth, (req, res) => {
   res.json({ vardas: req.user.vardas, role: req.user.role });
 });
-
-/* ------------------------------------------------------------------ */
-/* Administravimas: vartotojai, kategorijos, blokavimas                */
-/* ------------------------------------------------------------------ */
 
 app.get(
   '/users',
@@ -474,10 +446,6 @@ app.patch(
     });
   })
 );
-
-/* ------------------------------------------------------------------ */
-/* Skelbimai                                                           */
-/* ------------------------------------------------------------------ */
 
 app.get(
   '/ads',
@@ -576,10 +544,6 @@ app.delete(
   })
 );
 
-/* ------------------------------------------------------------------ */
-/* Komentarai                                                          */
-/* ------------------------------------------------------------------ */
-
 app.post(
   '/ads/:id/comments',
   optionalAuth,
@@ -637,11 +601,6 @@ app.delete(
   })
 );
 
-/* ------------------------------------------------------------------ */
-/* Patikę skelbimai                                                    */
-/* ------------------------------------------------------------------ */
-
-// Grąžina patikusių (ir egzistuojančių, neužblokuotų) skelbimų ID sąrašą
 app.get(
   '/favorites',
   requireAuth,
@@ -680,10 +639,6 @@ app.post(
   })
 );
 
-/* ------------------------------------------------------------------ */
-/* Klaidų apdorojimas                                                  */
-/* ------------------------------------------------------------------ */
-
 app.use((_req, res) => {
   res.status(404).json({ message: 'Maršrutas nerastas' });
 });
@@ -702,10 +657,6 @@ app.use((err, _req, res, _next) => {
   console.error(err);
   res.status(500).json({ message: 'Vidinė serverio klaida' });
 });
-
-/* ------------------------------------------------------------------ */
-/* Paleidimas                                                          */
-/* ------------------------------------------------------------------ */
 
 mongoose
   .connect(mongoUri)
